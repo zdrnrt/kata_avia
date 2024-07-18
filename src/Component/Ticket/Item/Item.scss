@@ -1,0 +1,55 @@
+.ticket-item {
+  padding: 20px;
+  border-radius: 5;
+  background-color: #fff;
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+  &__price {
+    font-size: 24px;
+    line-height: 24px;
+    color: #2196f3;
+  }
+  &__company {
+    width: 110px;
+  }
+  &__company-logo {
+    width: 100%;
+    height: auto;
+  }
+  &__segment {
+    & + & {
+      margin-top: 10px;
+    }
+  }
+}
+.segment {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 20px;
+  &__item {
+    flex: 1 0 calc((100% / 3));
+  }
+  &__key {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #a0b0b9;
+  }
+  &__value {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4a4a4a;
+  }
+}

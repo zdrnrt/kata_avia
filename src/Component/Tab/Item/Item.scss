@@ -1,0 +1,17 @@
+.tab-item {
+  padding: 15px;
+  flex-grow: 1;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  color: #4a4a4a;
+  cursor: pointer;
+  &--active {
+    color: #fff;
+    background-color: #2196f3;
+  }
+  &:not(.tab-item--active) + & {
+    border-left: 1px solid #dfe5ec;
+  }
+}

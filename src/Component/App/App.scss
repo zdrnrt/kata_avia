@@ -1,0 +1,30 @@
+body {
+  background-color: #f3f7fa;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  padding: 50px 20px;
+}
+
+.app {
+  max-width: 754px;
+  margin: 0 auto;
+  &__container {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 20px;
+  }
+  &__filter {
+    flex: 1 0 232px;
+  }
+  &__content {
+    flex: 1 0 502px;
+  }
+}
