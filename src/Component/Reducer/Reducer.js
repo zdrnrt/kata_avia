@@ -2,7 +2,7 @@ import React from 'react';
 
 const initialState = {
 	filter: {
-		value: '',
+		value: [2],
 		list: [
 			{
 				title: 'Все',
@@ -10,19 +10,19 @@ const initialState = {
 			},
 			{
 				title: 'Без пересадок',
-				value: 0,
+				value: '0',
 			},
 			{
 				title: '1 пересадка',
-				value: 1,
+				value: '1',
 			},
 			{
 				title: '2 пересадки',
-				value: 2,
+				value: '2',
 			},
 			{
 				title: '3 пересадки',
-				value: 3,
+				value: '3',
 			},
 		],
 	},
@@ -67,13 +67,14 @@ const initialState = {
 	],
 };
 
-function Reducer(state = initialState, action) {
+export default function Reducer(state = initialState, action) {
+	console.log('Reducer', action);
 	switch (action.type) {
-		case 'INC':
-			return state + 1;
+		case 'FILTER':
+			return {...state, filter: {...state.filter, value: action.payload}};
+		case 'SORT':
+			return {...state, sort: {...state.sort, value: action.payload}};
 		default:
 			return state;
 	}
 }
-
-export default Reducer;

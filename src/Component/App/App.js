@@ -7,7 +7,7 @@ import Reducer from '../Reducer';
 
 export default function App() {
 	const store = createStore(Reducer);
-	console.log(store.getState());
+	// console.log(store.getState());
 	return (
 		<Provider store={store}>
 			<Content />

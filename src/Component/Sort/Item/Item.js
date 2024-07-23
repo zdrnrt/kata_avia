@@ -3,10 +3,9 @@ import './Item.scss';
 
 export default function Item(sort) {
 	const data = sort.sort;
-	console.log(data);
 	return (
 		<label className="sort-item sort-list__item">
-			<input type="radio" name="sort" value={data.value} className="sort-item__input" />
+			<input type="radio" name="sort" value={data.value} className="sort-item__input" onClick={(e) => sort.action(e.target.value)} />
 			<span className="sort-item__title">{data.title}</span>
 		</label>
 	);

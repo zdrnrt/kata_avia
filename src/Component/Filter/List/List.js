@@ -3,8 +3,10 @@ import './List.scss';
 import Item from '../Item';
 
 export default function List(filter) {
-	// console.log('Filter.List', filter);
-	const filters = filter.list.list.map((el, i) => <Item key={i} filter={el} />);
+	// console.log('Filter.List', filter, filter.list.value);
+	const filters = filter.list.list.map(function(el, i) {
+		return <Item key={i} action={filter.action} filter={{el, value: filter.list.value}} />
+	});
 
 	return (
 		<div className="filter">
