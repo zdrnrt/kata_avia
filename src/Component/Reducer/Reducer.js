@@ -1,47 +1,17 @@
-import React from 'react';
+import React, { act } from 'react';
 
 const initialState = {
 	filter: {
-		value: [2],
-		list: [
-			{
-				title: 'Все',
-				value: 'ALL',
-			},
-			{
-				title: 'Без пересадок',
-				value: '0',
-			},
-			{
-				title: '1 пересадка',
-				value: '1',
-			},
-			{
-				title: '2 пересадки',
-				value: '2',
-			},
-			{
-				title: '3 пересадки',
-				value: '3',
-			},
-		],
+		value: {
+			'ALL': false,
+			'0': false,
+			'1': false,
+			'2': false,
+			'3': false,
+		}
 	},
 	sort: {
-		value: '',
-		list: [
-			{
-				title: 'Самый дешевый',
-				value: 'CHEAP',
-			},
-			{
-				title: 'Самый быстрый',
-				value: 'FAST',
-			},
-			{
-				title: 'Оптимальный',
-				value: 'OPTIMAL',
-			},
-		],
+		value: ''
 	},
 	ticket: [
 		{
@@ -68,12 +38,29 @@ const initialState = {
 };
 
 export default function Reducer(state = initialState, action) {
-	console.log('Reducer', action);
+	// console.log('Reducer', action);
 	switch (action.type) {
 		case 'FILTER':
-			return {...state, filter: {...state.filter, value: action.payload}};
+			let filterValue = state.filter.value;
+			if (action.payload == 'ALL') {
+				for (let filterItem in filterValue){
+					filterValue[filterItem] = !filterValue['ALL']
+				}
+			} else {
+				filterValue[action.payload] = !filterValue[action.payload];
+			}
+			if (filterValue['0'] && filterValue['1'] && filterValue['2'] && filterValue['3']){
+				filterValue['ALL'] = true;
+			} else {
+				filterValue['ALL'] = false;
+			}
+			return {...state, filter: {value: filterValue}}
 		case 'SORT':
-			return {...state, sort: {...state.sort, value: action.payload}};
+			let sortValue = null;
+			if (action.payload != state.sort.value) {
+				sortValue = action.payload
+			}
+			return {...state, sort: {value: sortValue}};
 		default:
 			return state;
 	}

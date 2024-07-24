@@ -19,7 +19,7 @@ function Content({ filter, sort, ticket, filterSet, sortSet }) {
 			<Header />
 			<div className="app__container">
 				<div className="app__filter">
-					<FilterList list={filter} action={filterSet} />
+					<FilterList filter={filter} action={filterSet} />
 				</div>
 				<div className="app__content">
 					<SortList list={sort} action={sortSet} />

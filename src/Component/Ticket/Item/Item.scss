@@ -1,6 +1,6 @@
 .ticket-item {
 	padding: 20px;
-	border-radius: 5;
+	border-radius: 5px;
 	background-color: #fff;
 	&__header {
 		display: flex;
@@ -28,14 +28,11 @@
 	}
 }
 .segment {
-	display: flex;
-	flex-flow: row nowrap;
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 	align-items: flex-start;
 	justify-content: flex-start;
 	column-gap: 20px;
-	&__item {
-		flex: 1 0 calc((100% / 3));
-	}
 	&__key {
 		font-weight: 600;
 		font-size: 12px;

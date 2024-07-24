@@ -1,16 +1,12 @@
 import React from 'react';
 import './Item.scss';
 
-export default function Item(sort) {
-	const data = sort.sort;
+export default function Item(props) {
+	const el = props.el;
 	return (
 		<label className="sort-item sort-list__item">
-			<input type="radio" name="sort" value={data.value} className="sort-item__input" onClick={(e) => sort.action(e.target.value)} />
-			<span className="sort-item__title">{data.title}</span>
+			<input type="radio" name="sort" checked={props.checked} value={el.value} className="sort-item__input" onClick={(e) => props.action(e.target.value)} />
+			<span className="sort-item__title">{el.title}</span>
 		</label>
 	);
 }
-
-// <div className="sort-item sort-list__item">
-// 	<h3>Tab/Item</h3>
-// </div>
