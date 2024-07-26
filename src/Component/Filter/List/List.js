@@ -28,8 +28,8 @@ export default function List(filter) {
 		},
 	];
 
-	const filters = filterItems.map(function(el, i) {
-		return <Item key={i} action={filter.action} el={el} checked={filter.filter.value[el.value]} />
+	const filters = filterItems.map(function (el, i) {
+		return <Item key={i} action={filter.action} el={el} checked={filter.filter.value[el.value]} />;
 	});
 
 	return (

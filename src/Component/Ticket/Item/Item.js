@@ -3,17 +3,13 @@ import './Item.scss';
 
 function Segment(data) {
 	const segment = data.data;
-	const segmentTextList = [
-		'пересадок',
-		'пересадка',
-		'пересадки',
-	];
+	const segmentTextList = ['пересадок', 'пересадка', 'пересадки'];
 	let segmentText = segmentTextList[0];
-	if (segment.stops.length == 1 ){
+	if (segment.stops.length == 1) {
 		segmentText = segmentTextList[1];
-	} else if (segment.stops.length > 1 &&  segment.stops.length < 5){
+	} else if (segment.stops.length > 1 && segment.stops.length < 5) {
 		segmentText = segmentTextList[2];
- 	}
+	}
 	// const segmentText = segment.stops.length == 0
 	return (
 		<div className="ticket-item__segment segment">
@@ -30,7 +26,9 @@ function Segment(data) {
 				</div>
 			</div>
 			<div className="segment__item">
-				<div className="segment__key">{segment.stops.length} {segmentText}</div>
+				<div className="segment__key">
+					{segment.stops.length} {segmentText}
+				</div>
 				<div className="segment__value">{segment.stops.join(', ')}</div>
 			</div>
 		</div>

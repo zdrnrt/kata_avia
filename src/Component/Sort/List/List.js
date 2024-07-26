@@ -17,8 +17,9 @@ export default function List(sort) {
 			value: 'OPTIMAL',
 		},
 	];
-	console.log(sort.list.value);
-	const sorts = sortList.map((el, i) => <Item key={i} el={el} cheched={el.value == sort.list.value} action={sort.action} />);
+	const sorts = sortList.map((el, i) => (
+		<Item key={i} el={el} checked={el.value === sort.list.value} action={sort.action} />
+	));
 	return (
 		<div className="sort">
 			<div className="sort__list">{sorts}</div>

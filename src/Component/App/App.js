@@ -1,12 +1,36 @@
 import React from 'react';
-import { createStore, bindActionCreators } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import { thunk } from 'redux-thunk';
 import './App.scss';
 import Content from '../Content';
 import Reducer from '../Reducer';
 
+/*
+function loggerMiddleware(store) {
+	return function (next) {
+		return function(action){
+			const result = next(action);
+			console.log('loggerMiddleware', result, store.getState());
+			return result;
+		}
+	}
+}
+*/
+
+const loggerMiddleware = (store) => (next) => (action) => {
+	const result = next(action);
+	console.log('loggerMiddleware', result, store.getState());
+	return result;
+};
+
+const composeEnhancers =
+	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+		: compose;
+
 export default function App() {
-	const store = createStore(Reducer);
+	const store = createStore(Reducer, composeEnhancers(applyMiddleware(loggerMiddleware, thunk)));
 	// console.log(store.getState());
 	return (
 		<Provider store={store}>

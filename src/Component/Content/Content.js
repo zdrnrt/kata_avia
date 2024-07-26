@@ -4,16 +4,13 @@ import FilterList from '../Filter/List';
 import SortList from '../Sort/List';
 import TicketList from '../Ticket/List';
 import Tool from '../Tool';
-import {filterSet, sortSet} from '../Action';
+import { filterSet, sortSet } from '../Action';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-
-
 function Content({ filter, sort, ticket, filterSet, sortSet }) {
-	// console.log(actions)
-	// console.log('Content', filter, sort, ticket);
+	console.log('Content', filter, sort, ticket);
 	return (
 		<div className="app">
 			<Header />
@@ -23,7 +20,7 @@ function Content({ filter, sort, ticket, filterSet, sortSet }) {
 				</div>
 				<div className="app__content">
 					<SortList list={sort} action={sortSet} />
-					<TicketList list={ticket} />
+					<TicketList list={ticket.list} />
 				</div>
 			</div>
 		</div>
@@ -41,7 +38,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({filterSet, sortSet}, dispatch);
+	return bindActionCreators({ filterSet, sortSet }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);
