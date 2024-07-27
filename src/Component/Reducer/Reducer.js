@@ -12,35 +12,16 @@ const initialState = {
 		},
 	},
 	sort: {
-		value: '',
+		value: null,
+	},
+	searchId: null,
+	status: {
+		load: false,
+		error: null,
 	},
 	ticket: {
-		status: {
-			load: false,
-			error: null,
-		},
-		list: [
-			{
-				price: 19950,
-				carrier: 'DP',
-				segments: [
-					{
-						origin: 'MOW',
-						destination: 'HKT',
-						date: '2024-07-07T19:23:37.881Z',
-						duration: 1214,
-						stops: ['DXB', 'JNB'],
-					},
-					{
-						origin: 'HKT',
-						destination: 'MOW',
-						date: '2024-10-03T10:37:28.129Z',
-						duration: 1425,
-						stops: ['DOH', 'HKG', 'JNB'],
-					},
-				],
-			},
-		],
+		stop: true,
+		tickets: [],
 	},
 };
 
@@ -48,6 +29,9 @@ export default function Reducer(state = initialState, action) {
 	// console.log('Reducer', action);
 	switch (action.type) {
 		case 'FILTER':
+			if (state.status.error) {
+				return state;
+			}
 			let filterValue = state.filter.value;
 			if (action.payload == 'ALL') {
 				for (let filterItem in filterValue) {
@@ -63,19 +47,45 @@ export default function Reducer(state = initialState, action) {
 			}
 			return { ...state, filter: { value: filterValue } };
 		case 'SORT':
-			let sortValue = null;
-			if (action.payload != state.sort.value) {
-				sortValue = action.payload;
+			if (state.status.error) {
+				return state;
 			}
-			return { ...state, sort: { value: sortValue } };
-		case 'TIKECT':
+			return { ...state, sort: { value: action.payload != state.sort.value ? action.payload : null } };
+		case 'GETSEARCHID':
+			console.log(action.payload);
+			if (!action.payload.error) {
+				return {
+					...state,
+					searchId: action.payload,
+				};
+			} else {
+				return {
+					...state,
+					status: { load: true, error: action.payload.error },
+				};
+			}
+		case 'LOADTICKETS':
+			if (!action.payload.error) {
+				return {
+					...state,
+					status: { load: true, error: null },
+					ticket: {
+						stop: action.payload.stop,
+						tickets: [...state.ticket.tickets, ...action.payload.tickets],
+					},
+				};
+			} else {
+				return {
+					...state,
+					status: { load: true, error: action.payload.error },
+				};
+			}
+		case 'LOADMORE':
 			return {
 				...state,
-				ticket: {
-					status: { load: action.payload.status, error: action.payload.error },
-					list: [...state.ticket.list, action.payload.tickets],
-				},
+				status: { load: false, error: null },
 			};
+
 		default:
 			return state;
 	}

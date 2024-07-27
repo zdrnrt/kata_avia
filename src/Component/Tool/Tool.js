@@ -1,11 +1,16 @@
 import React from 'react';
 
 export function getSearchId() {
-	fetch('https://aviasales-test-api.kata.academy/search').then((response) => {
-		console.log('Tool', response);
+	return fetch('https://aviasales-test-api.kata.academy/search').then((response) => {
 		if (response.ok) {
 			return response.json();
 		}
 	});
 }
-export function load() {}
+export function loadTikets(searchId) {
+	return fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`).then((response) => {
+		if (response.ok) {
+			return response.json();
+		}
+	});
+}

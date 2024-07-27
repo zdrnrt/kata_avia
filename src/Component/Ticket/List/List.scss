@@ -1,7 +1,61 @@
 .ticket-list {
+	&--load {
+		min-height: 50px;
+		background-image: linear-gradient(
+			45deg,
+			rgba(0, 0, 0, 0.03) 25%,
+			transparent 25%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.03) 50%,
+			rgba(0, 0, 0, 0.03) 75%,
+			transparent 75%,
+			transparent
+		) !important;
+		animation: loading-animate 2s linear infinite;
+		background-size: 40px 40px;
+		pointer-events: none;
+		.ticket-list__item {
+			opacity: 0.8;
+		}
+	}
+	@keyframes loading-animate {
+		from {
+			background-position: 40px 0;
+		}
+
+		to {
+			background-position: 0 0;
+		}
+	}
 	&__item {
+		&:nth-child(n + 3) {
+			display: none;
+		}
 		& + & {
 			margin-top: 20px;
+		}
+	}
+	&__error {
+		padding: 10px;
+		border: 2px solid rgb(255 99 71);
+		border-radius: 5px;
+		background: rgba(255, 99, 71, 0.2);
+	}
+	&__more {
+		display: block;
+		margin-top: 20px;
+		padding: 10px;
+		width: 100%;
+		text-align: center;
+		color: #fff;
+		background-color: #2196f3;
+		border: 2px solid #2196f3;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: 0.3s;
+		&:hover {
+			color: inherit;
+			background-color: #f1fcff;
 		}
 	}
 }

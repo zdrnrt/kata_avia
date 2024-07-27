@@ -31,7 +31,7 @@ const composeEnhancers =
 
 export default function App() {
 	const store = createStore(Reducer, composeEnhancers(applyMiddleware(loggerMiddleware, thunk)));
-	// console.log(store.getState());
+
 	return (
 		<Provider store={store}>
 			<Content />
