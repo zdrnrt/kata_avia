@@ -1,3 +1,3 @@
-# Практическая задача React Movie Avia
+# Практическая задача React Avia
 
-## Страница Vercel [https://movie-five-puce.vercel.app/](https://movie-five-puce.vercel.app/)
+## Страница Vercel [https://avia-liard.vercel.app/](https://avia-liard.vercel.app/)
