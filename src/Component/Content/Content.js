@@ -12,8 +12,6 @@ import { connect } from 'react-redux';
 
 const action = Action.default;
 
-//export default Content;
-
 const mapStateToProps = (state) => {
 	return {
 		filter: state.filter,
@@ -30,14 +28,60 @@ const mapDispatchToProps = (dispatch) => {
 
 function Content({ searchId, status, filter, sort, ticket, filterSet, sortSet, getSearchId, loadTickets, loadMore }) {
 	if (!searchId && !status.error) {
-		console.log('content getSearchId');
-		getSearchId();
+		// getSearchId();
 	}
 	if (!status.load && searchId) {
-		console.log('content loadTickets');
-		loadTickets(searchId);
+		// loadTickets(searchId);
 	}
-	// console.log('content', status)
+	let ticketList = ticket.tickets;
+	let filterState = false;
+	for (let el in filter.value) {
+		filterState = filterState || (filter.value[el] && !filter.value['ALL']);
+	}
+	if (filterState) {
+		ticketList = ticketList.filter((ticket) => {
+			let result = 0;
+			for (let el in filter.value) {
+				if (filter.value[el]) {
+					if (
+						ticket.segments[0].stops.length == Number(el) &&
+						ticket.segments[1].stops.length == Number(el)
+					) {
+						result++;
+					}
+				}
+			}
+			return !!result;
+		});
+	}
+	if (sort.value) {
+		switch (sort.value) {
+			case 'CHEAP':
+				ticketList = ticketList.sort((a, b) => a.price - b.price);
+				break;
+			case 'FAST':
+				ticketList = ticketList.sort(
+					(a, b) =>
+						a.segments[0].duration +
+						a.segments[1].duration -
+						(b.segments[0].duration + b.segments[1].duration)
+				);
+				break;
+			case 'OPTIMAL':
+				ticketList = ticketList.sort(
+					(a, b) =>
+						a.price +
+						a.segments[0].duration +
+						a.segments[1].duration -
+						(b.price + b.segments[0].duration + b.segments[1].duration)
+				);
+				break;
+			default:
+				ticketList = ticketList;
+				break;
+		}
+	}
+
 	return (
 		<div className="app">
 			<Header />
@@ -47,7 +91,7 @@ function Content({ searchId, status, filter, sort, ticket, filterSet, sortSet, g
 				</div>
 				<div className="app__content">
 					<SortList list={sort} action={sortSet} />
-					<TicketList status={status} ticket={ticket} action={loadMore} />
+					<TicketList status={status} stop={ticket.stop} tickets={ticketList} action={loadMore} />
 				</div>
 			</div>
 		</div>
