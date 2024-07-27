@@ -28,10 +28,10 @@ const mapDispatchToProps = (dispatch) => {
 
 function Content({ searchId, status, filter, sort, ticket, filterSet, sortSet, getSearchId, loadTickets, loadMore }) {
 	if (!searchId && !status.error) {
-		// getSearchId();
+		getSearchId();
 	}
 	if (!status.load && searchId) {
-		// loadTickets(searchId);
+		loadTickets(searchId);
 	}
 	let ticketList = ticket.tickets;
 	let filterState = false;

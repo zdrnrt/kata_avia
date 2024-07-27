@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import './Item.scss';
 
 function Segment(data) {
@@ -10,14 +11,17 @@ function Segment(data) {
 	} else if (segment.stops.length > 1 && segment.stops.length < 5) {
 		segmentText = segmentTextList[2];
 	}
-	// const segmentText = segment.stops.length == 0
+	let date = new Date(segment.date);
 	return (
 		<div className="ticket-item__segment segment">
 			<div className="segment__item">
 				<div className="segment__key">
 					{segment.origin} – {segment.destination}
 				</div>
-				<div className="segment__value">?? 10:45 – 08:00</div>
+				{/* <div className="segment__value">{format(segment.date, 'dd.MM.yyyy HH:mm')} - {format(new Date(new Date(segment.date).getTime() + (segment.duration * 1000 * 60)), 'HH-mm')}</div> */}
+				<div className="segment__value">
+					{format(date, 'HH:mm')} - {format(new Date(date.getTime() + segment.duration * 1000 * 60), 'HH:mm')}
+				</div>
 			</div>
 			<div className="segment__item">
 				<div className="segment__key">В пути</div>
@@ -36,10 +40,8 @@ function Segment(data) {
 }
 
 export default function Item(data) {
-	// console.log('Ticket.Item', data);
 	const ticket = data.ticket;
 	let segmentList = ticket.segments.map(function (el, i) {
-		// console.log(el, i);
 		return <Segment key={i} data={el} />;
 	});
 	return (
